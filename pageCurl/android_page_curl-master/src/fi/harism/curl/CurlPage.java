@@ -21,6 +21,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.widget.LinearLayout;
 
 /**
  * Storage class for page textures, blend colors and possibly some other values
@@ -94,7 +95,6 @@ public class CurlPage {
 		Paint paint = new Paint();
 		Canvas c = new Canvas(bitmapTex);
 		c.drawBitmap(bitmap, 0, 0, paint);
-		c.drawText("Fuck", 100, 100, paint);
 
 		// Calculate final texture coordinates.
 		float texX = (float) w / newW;
@@ -102,6 +102,34 @@ public class CurlPage {
 		textureRect.set(0f, 0f, texX, texY);
 
 		return bitmapTex;
+	}
+
+	private Bitmap getTexture(LinearLayout linearLayout, RectF textureRect) {
+		int w = linearLayout.getWidth();
+		int h = linearLayout.getHeight();
+
+		int rw = getNextHighestPO2(w);
+		int rh = getNextHighestPO2(h);
+
+		Bitmap bitmap = Bitmap.createBitmap(rw, rh, Bitmap.Config.ARGB_8888);
+		bitmap.eraseColor(Color.WHITE);
+
+		Paint paint = new Paint();
+		Canvas canvas = new Canvas(bitmap);
+
+		linearLayout.setDrawingCacheEnabled(true);
+		Bitmap layoutCapture = Bitmap.createBitmap(linearLayout
+				.getDrawingCache());
+		linearLayout.setDrawingCacheEnabled(false);
+
+		canvas.drawBitmap(layoutCapture, 0, 0, paint);
+
+		// Calculate final texture coordinates.
+		float texX = (float) w / rw;
+		float texY = (float) h / rh;
+		textureRect.set(0f, 0f, texX, texY);
+
+		return bitmap;
 	}
 
 	/**

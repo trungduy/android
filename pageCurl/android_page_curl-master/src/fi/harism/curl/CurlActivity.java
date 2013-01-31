@@ -24,7 +24,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.webkit.WebView;
 
 /**
  * Simple Activity for curl testing.
@@ -72,6 +71,7 @@ public class CurlActivity extends Activity {
 		return mCurlView.getCurrentIndex();
 	}
 
+	
 	/**
 	 * Bitmap provider.
 	 */
@@ -84,15 +84,6 @@ public class CurlActivity extends Activity {
 		@Override
 		public int getPageCount() {
 			return 5;
-		}
-
-		private Bitmap loadBitmap(final WebView webView, int width, int height,
-				int index) {
-			Bitmap bitmap = Bitmap.createBitmap(width, height,
-					Bitmap.Config.ARGB_8888);
-			bitmap.eraseColor(0xFFFFFFFF);
-			Canvas canvas = new Canvas(bitmap);
-			return null;
 		}
 
 		private Bitmap loadBitmap(int width, int height, int index) {
