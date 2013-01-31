@@ -1,5 +1,6 @@
 package fi.harism.curl;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -39,9 +40,18 @@ public class WebViewImage extends FragmentActivity {
 			@Override
 			public void onGlobalLayout() {
 				// TODO Auto-generated method stub
-				view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-				Bitmap bitmap = htmlToBitmap.getTexture();
-				imageView.setImageBitmap(bitmap);
+//				view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//				view.setDrawingCacheEnabled(true);
+//				view.setDrawingCacheQuality(WebView.DRAWING_CACHE_QUALITY_HIGH);
+				final Bitmap bitmap = htmlToBitmap.getTexture();
+				// imageView.setImageBitmap(bitmap);
+
+				Intent intent = new Intent(WebViewImage.this, BitmapView.class);
+				intent.putExtra("bitmap", bitmap);
+				startActivity(intent);
+				//
+				// view.setDrawingCacheEnabled(false);
+				// view.destroyDrawingCache();
 			}
 		});
 	}
