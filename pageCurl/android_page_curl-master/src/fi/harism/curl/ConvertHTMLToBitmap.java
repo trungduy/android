@@ -2,8 +2,6 @@ package fi.harism.curl;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -25,21 +23,19 @@ public class ConvertHTMLToBitmap {
 		mWebView.loadUrl(url);
 	}
 
-	// public Bitmap getTexture() {
-	// mWebView.setDrawingCacheEnabled(true);
-	// Bitmap bitmap = Bitmap.createBitmap(mWebView.getWidth(),
-	// mWebView.getHeight(), Bitmap.Config.ARGB_8888);
-	//
-	// bitmap.eraseColor(Color.BLUE);
-	// Canvas canvas = new Canvas(bitmap);
-	// Paint paint = new Paint();
-	// canvas.drawBitmap(bitmap, 0, 0, paint);
-	// mWebView.draw(canvas);
-	//
-	// return bitmap;
-	// }
-
 	public Bitmap getTexture() {
-		return null;
+		mWebView.setDrawingCacheEnabled(true);
+		Bitmap bitmap = Bitmap.createBitmap(mWebView.getWidth(),
+				mWebView.getHeight(), Bitmap.Config.ARGB_8888);
+
+		Canvas canvas = new Canvas(bitmap);
+		canvas.drawBitmap(bitmap, 0, 0, null);
+
+		Bitmap bitmap2 = mWebView.getDrawingCache();
+		canvas.drawBitmap(bitmap2, 0, 0, null);
+		mWebView.destroyDrawingCache();
+
+		return bitmap;
 	}
+
 }
